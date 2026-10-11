@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "DOMONO Dashboard",
+    "slug": "domono-mobile-dashboard",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#0f172a"
+    },
+    "ios": { "supportsTablet": true },
+    "android": {},
+    "web": {}
+  }
+}

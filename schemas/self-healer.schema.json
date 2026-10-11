@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DOMONO Runtime Self-Healer Output",
+  "description": "Module 4 strict JSON contract: a patch proposal for a broken locator, computed against the live DOM.",
+  "type": "object",
+  "required": ["failed_locator", "healed_locator", "confidence_score", "reasoning", "code_patch"],
+  "properties": {
+    "failed_locator": { "type": "string" },
+    "healed_locator": { "type": "string" },
+    "confidence_score": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "reasoning": { "type": "string" },
+    "code_patch": { "type": "string", "description": "Unified diff or direct code replacement snippet." }
+  },
+  "examples": [
+    {
+      "failed_locator": "[data-testid=\"confirm-reassign-btn\"]",
+      "healed_locator": "role=button[name=\"Confirm Reassignment\"]",
+      "confidence_score": 0.93,
+      "reasoning": "data-testid attribute was removed in the latest release; the button's accessible name and role remained unchanged, so a role-based locator reliably targets the same element.",
+      "code_patch": "- await page.locator('[data-testid=\"confirm-reassign-btn\"]').click();\n+ await page.getByRole('button', { name: 'Confirm Reassignment' }).click();"
+    }
+  ]
+}

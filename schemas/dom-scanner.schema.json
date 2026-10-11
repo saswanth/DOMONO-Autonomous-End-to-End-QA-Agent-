@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DOMONO DOM & Environment Scanner Output",
+  "description": "Module 2 strict JSON contract: maps interactive UI elements to robust locator strategies.",
+  "type": "object",
+  "required": ["page_url", "mapped_elements"],
+  "properties": {
+    "page_url": { "type": "string", "format": "uri" },
+    "mapped_elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["element_label", "primary_selector", "fallback_selectors", "element_type"],
+        "properties": {
+          "element_label": { "type": "string" },
+          "primary_selector": { "type": "string", "description": "Highest-stability locator, preferring data-testid/aria-label/role+text." },
+          "fallback_selectors": { "type": "array", "items": { "type": "string" } },
+          "element_type": { "type": "string", "enum": ["button", "input", "link", "select", "checkbox", "radio", "text", "other"] }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "page_url": "https://helpdesk.example.com/tickets/4821",
+      "mapped_elements": [
+        {
+          "element_label": "Reassign Agent Dropdown",
+          "primary_selector": "[data-testid=\"reassign-agent-select\"]",
+          "fallback_selectors": [
+            "role=combobox[name=\"Reassign to\"]",
+            "text=Reassign Agent"
+          ],
+          "element_type": "select"
+        },
+        {
+          "element_label": "Confirm Reassignment Button",
+          "primary_selector": "role=button[name=\"Confirm Reassignment\"]",
+          "fallback_selectors": [
+            "[data-testid=\"confirm-reassign-btn\"]"
+          ],
+          "element_type": "button"
+        }
+      ]
+    }
+  ]
+}

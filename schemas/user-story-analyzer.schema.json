@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DOMONO User Story Analyzer Output",
+  "description": "Module 1 strict JSON contract: converts a raw user story into structured test requirements.",
+  "type": "object",
+  "required": ["story_id", "summary", "test_cases"],
+  "properties": {
+    "story_id": { "type": "string", "description": "Unique identifier, e.g. JIRA ticket key." },
+    "summary": { "type": "string", "description": "One-paragraph summary of the user story and its personas." },
+    "test_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["test_id", "title", "type", "preconditions", "steps"],
+        "properties": {
+          "test_id": { "type": "string" },
+          "title": { "type": "string" },
+          "type": { "type": "string", "enum": ["happy_path", "unhappy_path", "edge_case"] },
+          "preconditions": { "type": "array", "items": { "type": "string" } },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["action", "expected_result"],
+              "properties": {
+                "action": { "type": "string" },
+                "expected_result": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "story_id": "HELP-142",
+      "summary": "As a helpdesk agent, I want real-time email alerts when a ticket is reassigned so I can respond immediately.",
+      "test_cases": [
+        {
+          "test_id": "HELP-142-TC01",
+          "title": "Agent receives email on ticket reassignment",
+          "type": "happy_path",
+          "preconditions": ["Agent is logged in", "PAT-based mail service is configured"],
+          "steps": [
+            { "action": "Reassign ticket #4821 to Agent A", "expected_result": "Ticket status updates to 'Reassigned'" },
+            { "action": "Wait for notification dispatch", "expected_result": "Agent A receives email within 5 seconds" }
+          ]
+        },
+        {
+          "test_id": "HELP-142-TC02",
+          "title": "No email sent when reassigned to self",
+          "type": "unhappy_path",
+          "preconditions": ["Agent is logged in"],
+          "steps": [
+            { "action": "Reassign ticket to the currently logged-in agent", "expected_result": "No email notification is dispatched" }
+          ]
+        }
+      ]
+    }
+  ]
+}

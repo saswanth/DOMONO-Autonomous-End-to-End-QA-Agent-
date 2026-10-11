@@ -1,0 +1,16 @@
+{
+  "name": "domono-integrator",
+  "version": "1.0.0",
+  "description": "DOMONO Module 5 - Dashboard Reporting & GitHub Integrator (PR publishing + PAT-authenticated mail notifications)",
+  "type": "module",
+  "main": "run.js",
+  "scripts": {
+    "start": "node run.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.1.1",
+    "dotenv": "^16.4.5",
+    "nodemailer": "^10.1.0",
+    "simple-git": "^4.0.2"
+  }
+}

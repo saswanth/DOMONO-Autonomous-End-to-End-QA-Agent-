@@ -1,0 +1,32 @@
+# DOMONO Pipeline — Tooling Requirements
+#
+# DOMONO is primarily a Node.js/TypeScript toolchain. This file documents the
+# minimum tool versions required to run the full pipeline (Modules 0-5).
+# There is no Python runtime dependency for the core pipeline; this file is
+# kept at the repo root as the canonical "requirements" manifest requested
+# by the team's helpdesk-style project convention.
+
+# --- Core runtime ---
+node>=18.0.0
+npm>=9.0.0
+
+# --- Module 3: Playwright Script Generator / test execution ---
+@playwright/test>=1.45.0
+
+# --- Module 0: Web Dashboard (web/) ---
+react>=18.2.0
+react-dom>=18.2.0
+vite>=5.0.0
+# Note: web dashboard is plain React + plain CSS — Tailwind/PostCSS are NOT used.
+
+# --- Module 0: Mobile Dashboard (mobile/) ---
+react-native>=0.74.0
+expo>=51.0.0
+
+# --- Module 5: Dashboard Reporting & GitHub Integrator ---
+@octokit/rest>=20.0.0      # GitHub PR/commit automation
+simple-git>=3.25.0         # Branch/commit orchestration
+nodemailer>=6.9.0          # PAT-authenticated real-time mail notifications
+
+# --- Optional: JSON schema validation for Modules 1/2/4 contracts ---
+ajv>=8.12.0
